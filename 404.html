@@ -17,8 +17,12 @@
   
   <script>
     (function () {
-      var path = location.pathname;
-      var base = path === "/wanderlust" || path.indexOf("/wanderlust/") === 0 ? "/wanderlust/" : "/";
+      var base = "/";
+      if (location.hostname.endsWith("github.io")) {
+        var views = { dashboard: 1, holidays: 1, events: 1, weather: 1, "long-weekends": 1, plans: 1, currency: 1, "sun-times": 1 };
+        var part = location.pathname.split("/").filter(Boolean)[0];
+        if (part && !views[part]) base = "/" + part + "/";
+      }
       document.write('<link rel="stylesheet" href="' + base + 'css/styles.css" />');
       document.write('<link rel="stylesheet" href="' + base + 'css/extras.css" />');
     })();
@@ -572,8 +576,12 @@
   
   <script>
     (function () {
-      var path = location.pathname;
-      var base = path === "/wanderlust" || path.indexOf("/wanderlust/") === 0 ? "/wanderlust/" : "/";
+      var base = "/";
+      if (location.hostname.endsWith("github.io")) {
+        var views = { dashboard: 1, holidays: 1, events: 1, weather: 1, "long-weekends": 1, plans: 1, currency: 1, "sun-times": 1 };
+        var part = location.pathname.split("/").filter(Boolean)[0];
+        if (part && !views[part]) base = "/" + part + "/";
+      }
       var script = document.createElement("script");
       script.type = "module";
       script.src = base + "js/app.js";

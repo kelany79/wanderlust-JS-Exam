@@ -15,9 +15,12 @@ export const CONFIG = {
 };
 
 export function siteBase() {
-  const path = location.pathname;
-  if (path === "/wanderlust" || path.startsWith("/wanderlust/")) return "/wanderlust";
-  return "";
+  const host = location.hostname;
+  if (!host.endsWith("github.io")) return "";
+  const views = new Set(["dashboard", "holidays", "events", "weather", "long-weekends", "plans", "currency", "sun-times", "index.html"]);
+  const part = location.pathname.split("/").filter(Boolean)[0];
+  if (!part || views.has(part)) return "";
+  return `/${part}`;
 }
 
 export function sitePath(path) {

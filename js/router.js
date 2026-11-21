@@ -22,8 +22,9 @@ export class Router {
   static normalize(path) {
     let value = String(path || "/").split("?")[0].split("#")[0];
     if (!value.startsWith("/")) value = `/${value}`;
-    if (value === "/wanderlust" || value.startsWith("/wanderlust/")) {
-      value = value.slice("/wanderlust".length) || "/";
+    const base = siteBase();
+    if (base && (value === base || value.startsWith(`${base}/`))) {
+      value = value.slice(base.length) || "/";
     }
     if (value.length > 1 && value.endsWith("/")) value = value.slice(0, -1);
     if (value.endsWith("/index.html")) value = value.slice(0, -"/index.html".length) || "/";
